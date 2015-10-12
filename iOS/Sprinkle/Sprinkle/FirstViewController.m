@@ -19,32 +19,7 @@
     [super viewDidLoad];
     self.fetchedResults = [NSArray array];
     [self refetchStates];
-//    [client invokeMethod:@"get_schedule" success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"Success!");
-//        NSLog(@"%@", responseObject);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Fail :(");
-//    }];
-//
-//    [[SprinkleRPCClient sharedClient] invokeMethod:@"get_mode" withParameters:@{@"circuit": @0} requestId:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%@", [responseObject objectForKey:@"state"]);
-//        NSString *state = [responseObject objectForKey:@"state"];
-//        if ([state isEqualToString:@"OFF"]) {
-//            self.zone0segment.selectedSegmentIndex = 0;
-//        }
-//        else if ([state isEqualToString:@"ON"]) {
-//            self.zone0segment.selectedSegmentIndex = 1;
-//        }
-//        else {
-//            self.zone0segment.selectedSegmentIndex = 2;
-//        }
-//        
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Fail");
-//    }];
-//    
-    // Do any additional setup after loading the view, typically from a nib.
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,13 +50,7 @@
     if (duration) {
         [params setValue:duration forKey:@"duration"];
     }
-    
-//    [client invokeMethod:@"set_mode" withParameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"Success");
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Failure");
-//    }];
-    
+
 }
 
 #pragma mark - UICollectionView 
@@ -94,6 +63,7 @@
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"zoneCell";
     ZoneCollectionViewCell *cell = (ZoneCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    cell.zoneDelegate = self;
     [cell setData:[self.fetchedResults objectAtIndex:[indexPath row]]];
     return cell;
 }
@@ -101,6 +71,7 @@
 #pragma mark - Fetched Results
 - (void) refetchStates {
     [[SprinkleRPCClient sharedClient]invokeMethod:@"get_zones" success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
         self.fetchedResults = [NSArray arrayWithArray:responseObject];
         [self.collectionView reloadData];
         
@@ -109,6 +80,62 @@
     }];
 }
 
+- (IBAction)refreshButtonPressed:(id)sender {
+    [self refetchStates];
+}
+
+#pragma mark - Zone Delegate
+- (NSArray *)stateMap {
+    static NSArray *states;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        states = @[@"OFF",
+                    @"ON",
+                    @"AUTO"];
+    });
+    return states;
+}
+
+- (NSArray *)durationMap {
+    static NSArray *states;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        states = @[@(2  * 60),
+                   @(5  * 60),
+                   @(10 * 60),
+                   @(15 * 60),
+                   @(30 * 60)];
+    });
+    return states;
+}
+
+- (void) cell:(id)_cell zone:(NSUInteger)zone changedWithValue:(NSUInteger)value {
+    ZoneCollectionViewCell *cell = (ZoneCollectionViewCell *)_cell;
+    NSLog(@"Zone: %ld changed to %ld", (long)zone, (long)value);
+    // Handle telling the Scheduler that this zone turned on.
+    // We need to map value to an NSString
+    
+    NSString *mode = [[self stateMap] objectAtIndex:value];
+    NSNumber *duration = [[self durationMap] objectAtIndex:[self.durationPicker selectedSegmentIndex]];
+    NSLog(@"Setting zone: %ld to %@ for duration: %@", zone, mode, duration);
+    
+    // Tell the server
+    NSDictionary *params = @{
+                            @"mode": mode,
+                            @"circuit": [NSNumber numberWithInteger:zone],
+                            @"duration": duration,
+                            };
+    
+    [[SprinkleRPCClient sharedClient] invokeMethod:@"set_mode" withParameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Success");
+        [cell setData:responseObject];
+        NSLog(@"%@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Failure");
+        [self refetchStates];
+    }];
+    
+}
 
 
 @end

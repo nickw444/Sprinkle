@@ -112,7 +112,36 @@ def set_zone(circuit, zone_name):
         session.close()
 
     return rv
-    
+
+def get_zone(zone, session=None):
+    if session is None:
+        _session = Session()
+    else:
+        _session = session
+
+
+    mode = circuit_states[zone]
+    off_at = None
+
+    if circuit_off_times[zone] is not None:
+        mode = 'ON'
+        off_at = circuit_off_times[zone].isoformat()
+
+    db_zone = _session.query(Zone).get(zone)
+    if not db_zone:
+        db_zone = Zone(circuit=zone)
+
+    zone = dict(
+        name=db_zone.name,
+        mode=mode,
+        off_at=off_at,
+        circuit=zone,
+    )
+
+    if session is None:
+        _session.close()
+
+    return zone
 
 def get_zones(zones=None):
     
@@ -122,25 +151,13 @@ def get_zones(zones=None):
     session = Session()
     response = list()
     for x in zones:
-        mode = circuit_states[x]
-        off_at = None
-        if circuit_off_times[x] is not None:
-            mode = 'ON'
-            off_at = circuit_off_times[x].isoformat()
-
-        
-        db_zone = session.query(Zone).get(x)
-        if not db_zone:
-            db_zone = Zone(circuit=x)
-
-        zone = dict(
-            name=db_zone.name,
-            mode=mode,
-            off_at=off_at,
-        )
+        zone = get_zone(x, session=session)
         response.append(zone)
 
     session.close()
+
+    print(response)
+
     return response
 
 
@@ -201,7 +218,6 @@ def set_mode(mode, circuit, duration=None):
                 print("Removing job with id: {}".format(job.id))
                 job.remove()
 
-    
     if mode == 'OFF':
         clean_scheduled_and_one_off()
 
@@ -242,6 +258,9 @@ def set_mode(mode, circuit, duration=None):
         circuit_off_times[circuit] = None
         circuit_states[circuit] = 'AUTO'
         hwi.set_port(circuit, 0)
+
+    return get_zone(circuit)
+
 
 
 def add_schedule(circuit, days, hour, minute, duration):

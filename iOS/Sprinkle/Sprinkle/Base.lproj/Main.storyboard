@@ -6,6 +6,23 @@
     </dependencies>
     <scenes>
         <!--First-->
+        <scene sceneID="82i-R1-Xsf">
+            <objects>
+                <navigationController id="n8c-gd-28Z" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="First" image="first" id="1Jc-l1-ruY"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mr3-qt-res">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="9pv-A4-QxB" kind="relationship" relationship="rootViewController" id="DUf-MJ-iUd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2p6-br-YZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="257" y="-630"/>
+        </scene>
+        <!--Zones-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="FirstViewController" sceneMemberID="viewController">
@@ -28,19 +45,25 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="zoneCell" id="eIH-LG-uv5" customClass="ZoneCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="207" height="137"/>
+                                        <rect key="frame" x="0.0" y="64" width="207" height="137"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="207" height="137"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HWW-oA-ld0">
-                                                    <rect key="frame" x="16" y="60" width="174" height="29"/>
+                                                    <rect key="frame" x="17" y="60" width="173" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="173" id="C6c-tK-MCu"/>
+                                                    </constraints>
                                                     <segments>
                                                         <segment title="OFF"/>
                                                         <segment title="ON"/>
                                                         <segment title="AUTO"/>
                                                     </segments>
+                                                    <connections>
+                                                        <action selector="zoneModeChanged:" destination="eIH-LG-uv5" eventType="valueChanged" id="BKs-7A-bkl"/>
+                                                    </connections>
                                                 </segmentedControl>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1o-9b-cue">
                                                     <rect key="frame" x="16" y="101" width="175" height="21"/>
@@ -67,11 +90,10 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="HWW-oA-ld0" firstAttribute="leading" secondItem="eIH-LG-uv5" secondAttribute="leadingMargin" constant="8" id="2tY-xt-D0n"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="H1o-9b-cue" secondAttribute="trailing" constant="8" id="5KM-Xw-oZ0"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="HWW-oA-ld0" secondAttribute="trailing" constant="9" id="BUO-cv-oGz"/>
                                             <constraint firstItem="w2R-yW-xTf" firstAttribute="centerX" secondItem="eIH-LG-uv5" secondAttribute="centerX" id="C6R-E8-bqQ"/>
                                             <constraint firstItem="H1o-9b-cue" firstAttribute="leading" secondItem="eIH-LG-uv5" secondAttribute="leadingMargin" constant="8" id="CHe-FL-VnT"/>
+                                            <constraint firstItem="HWW-oA-ld0" firstAttribute="centerX" secondItem="eIH-LG-uv5" secondAttribute="centerX" id="FWe-FZ-gfv"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="w2R-yW-xTf" secondAttribute="trailing" constant="8" id="S5l-Jh-z8w"/>
                                             <constraint firstItem="H1o-9b-cue" firstAttribute="top" secondItem="HWW-oA-ld0" secondAttribute="bottom" constant="13" id="c8a-pL-v6M"/>
                                             <constraint firstItem="w2R-yW-xTf" firstAttribute="leading" secondItem="eIH-LG-uv5" secondAttribute="leadingMargin" constant="8" id="hHR-Aq-gDJ"/>
@@ -115,14 +137,22 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <navigationItem key="navigationItem" title="Zones" id="zhz-7E-YcO">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="a7s-Pu-EuF">
+                            <connections>
+                                <action selector="refreshButtonPressed:" destination="9pv-A4-QxB" id="WhF-A1-ISo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
                     <connections>
                         <outlet property="collectionView" destination="syM-ia-gUz" id="9vE-f8-D5R"/>
+                        <outlet property="durationPicker" destination="atO-q3-zOO" id="457-Bd-hiv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-321"/>
+            <point key="canvasLocation" x="922" y="-306"/>
         </scene>
         <!--Second-->
         <scene sceneID="wg7-f3-ORb">
@@ -175,7 +205,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
+                        <segue destination="n8c-gd-28Z" kind="relationship" relationship="viewControllers" id="UZv-CA-BzM"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                     </connections>
                 </tabBarController>

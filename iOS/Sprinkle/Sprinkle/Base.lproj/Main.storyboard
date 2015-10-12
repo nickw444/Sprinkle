@@ -27,7 +27,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="eIH-LG-uv5">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="zoneCell" id="eIH-LG-uv5" customClass="ZoneCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="207" height="137"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -80,8 +80,17 @@
                                             <constraint firstItem="HWW-oA-ld0" firstAttribute="top" secondItem="w2R-yW-xTf" secondAttribute="bottom" constant="8" id="peG-1p-ZR7"/>
                                             <constraint firstItem="H1o-9b-cue" firstAttribute="centerX" secondItem="eIH-LG-uv5" secondAttribute="centerX" id="zIf-bX-wNf"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="countdownLabel" destination="H1o-9b-cue" id="iGB-BR-gQj"/>
+                                            <outlet property="segmentController" destination="HWW-oA-ld0" id="RYf-0A-dYy"/>
+                                            <outlet property="zoneLabel" destination="w2R-yW-xTf" id="yed-sR-y7s"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="9pv-A4-QxB" id="5fP-Cb-wl2"/>
+                                    <outlet property="delegate" destination="9pv-A4-QxB" id="uRn-AO-DMx"/>
+                                </connections>
                             </collectionView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="atO-q3-zOO">
                                 <rect key="frame" x="40" y="503" width="520" height="29"/>
@@ -106,6 +115,10 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
+                    <connections>
+                        <outlet property="collectionView" destination="syM-ia-gUz" id="9vE-f8-D5R"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>

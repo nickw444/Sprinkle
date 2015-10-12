@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		608C30011BCBB29800A4F24B /* SprinkleRPCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 608C30001BCBB29800A4F24B /* SprinkleRPCClient.m */; settings = {ASSET_TAGS = (); }; };
+		608C30041BCBB60100A4F24B /* ZoneCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 608C30031BCBB60100A4F24B /* ZoneCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		60E0CF731BCA9AA700583684 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E0CF721BCA9AA700583684 /* main.m */; };
 		60E0CF761BCA9AA700583684 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E0CF751BCA9AA700583684 /* AppDelegate.m */; };
 		60E0CF791BCA9AA700583684 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E0CF781BCA9AA700583684 /* FirstViewController.m */; };
@@ -20,6 +22,10 @@
 /* Begin PBXFileReference section */
 		2C755DD05D4701AE718AB01E /* Pods-Sprinkle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sprinkle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sprinkle/Pods-Sprinkle.release.xcconfig"; sourceTree = "<group>"; };
 		2CC56F859931B25E64F152F8 /* Pods-Sprinkle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sprinkle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sprinkle/Pods-Sprinkle.debug.xcconfig"; sourceTree = "<group>"; };
+		608C2FFF1BCBB29800A4F24B /* SprinkleRPCClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SprinkleRPCClient.h; sourceTree = "<group>"; };
+		608C30001BCBB29800A4F24B /* SprinkleRPCClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SprinkleRPCClient.m; sourceTree = "<group>"; };
+		608C30021BCBB60100A4F24B /* ZoneCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoneCollectionViewCell.h; sourceTree = "<group>"; };
+		608C30031BCBB60100A4F24B /* ZoneCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoneCollectionViewCell.m; sourceTree = "<group>"; };
 		60E0CF6E1BCA9AA700583684 /* Sprinkle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sprinkle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60E0CF721BCA9AA700583684 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		60E0CF741BCA9AA700583684 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -68,6 +74,8 @@
 		60E0CF701BCA9AA700583684 /* Sprinkle */ = {
 			isa = PBXGroup;
 			children = (
+				608C30021BCBB60100A4F24B /* ZoneCollectionViewCell.h */,
+				608C30031BCBB60100A4F24B /* ZoneCollectionViewCell.m */,
 				60E0CF741BCA9AA700583684 /* AppDelegate.h */,
 				60E0CF751BCA9AA700583684 /* AppDelegate.m */,
 				60E0CF771BCA9AA700583684 /* FirstViewController.h */,
@@ -79,6 +87,8 @@
 				60E0CF821BCA9AA700583684 /* LaunchScreen.storyboard */,
 				60E0CF851BCA9AA700583684 /* Info.plist */,
 				60E0CF711BCA9AA700583684 /* Supporting Files */,
+				608C2FFF1BCBB29800A4F24B /* SprinkleRPCClient.h */,
+				608C30001BCBB29800A4F24B /* SprinkleRPCClient.m */,
 			);
 			path = Sprinkle;
 			sourceTree = "<group>";
@@ -212,6 +222,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				608C30041BCBB60100A4F24B /* ZoneCollectionViewCell.m in Sources */,
+				608C30011BCBB29800A4F24B /* SprinkleRPCClient.m in Sources */,
 				60E0CF7C1BCA9AA700583684 /* SecondViewController.m in Sources */,
 				60E0CF761BCA9AA700583684 /* AppDelegate.m in Sources */,
 				60E0CF791BCA9AA700583684 /* FirstViewController.m in Sources */,

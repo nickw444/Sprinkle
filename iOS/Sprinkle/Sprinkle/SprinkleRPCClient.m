@@ -1,0 +1,20 @@
+//
+//  SprinkleRPCClient.m
+//  Sprinkle
+//
+//  Created by Nicholas Whyte on 12/10/2015.
+//
+//
+
+#import "SprinkleRPCClient.h"
+
+@implementation SprinkleRPCClient
++ (AFJSONRPCClient* ) sharedClient {
+    static AFJSONRPCClient *sharedClient = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedClient = [AFJSONRPCClient clientWithEndpointURL:[NSURL URLWithString:@"http://127.0.0.1:8002"]];
+    });
+    return sharedClient;
+}
+@end

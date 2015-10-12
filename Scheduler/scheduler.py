@@ -8,6 +8,30 @@ import datetime
 import arrow
 import jsonrpclib
 
+from sqlalchemy import create_engine
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+engine = create_engine('sqlite:///zones.db')
+Base = declarative_base()
+Session = sessionmaker(bind=engine)
+class Zone(Base):
+    __tablename__ = 'zone'
+    circuit = Column(Integer, primary_key=True, autoincrement=False)
+    _name = Column(String(255))
+
+    @property
+    def name(self):
+        if self._name:
+            return self._name
+        else:
+            return "Zone {}".format(self.circuit)
+    @name.setter
+    def name(self, other):
+        self._name = other
+
+Base.metadata.create_all(engine) 
+
 
 jobstores = {
     'default': SQLAlchemyJobStore(url='sqlite:///jobs.sqlite')
@@ -63,6 +87,61 @@ def jobs_for_circuit(circuit):
         lambda x: x.kwargs['circuit'] == circuit, 
         scheduler.get_jobs()
     )
+
+def set_zones(num_zones):
+    pass
+
+def set_zone(circuit, zone_name):
+    """
+    Set the name of a circuit.
+    """
+    session = Session()
+    rv = False
+    try:
+        db_zone = session.query(Zone).get(circuit)
+        if not db_zone:
+            db_zone = Zone(circuit=circuit)
+            session.add(db_zone)
+        db_zone.name = zone_name
+        session.commit()
+        rv = True
+    except Exception as e:
+        rv = False
+        print(e)
+    finally:
+        session.close()
+
+    return rv
+    
+
+def get_zones(zones=None):
+    
+    if zones is None:
+        zones = range(8)
+
+    session = Session()
+    response = list()
+    for x in zones:
+        mode = circuit_states[x]
+        off_at = None
+        if circuit_off_times[x] is not None:
+            mode = 'ON'
+            off_at = circuit_off_times[x].isoformat()
+
+        
+        db_zone = session.query(Zone).get(x)
+        if not db_zone:
+            db_zone = Zone(circuit=x)
+
+        zone = dict(
+            name=db_zone.name,
+            mode=mode,
+            off_at=off_at,
+        )
+        response.append(zone)
+
+    session.close()
+    return response
 
 
 def get_mode(circuit):
@@ -232,5 +311,8 @@ if __name__ == '__main__':
     s.register_function(add_schedule)
     s.register_function(get_schedule)
     s.register_function(rm_schedule)
+    s.register_function(get_zones)
+    s.register_function(set_zones)
+    s.register_function(set_zone)
     s.serve_forever()
 

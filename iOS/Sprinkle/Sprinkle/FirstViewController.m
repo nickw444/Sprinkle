@@ -64,6 +64,7 @@
     static NSString *identifier = @"zoneCell";
     ZoneCollectionViewCell *cell = (ZoneCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     cell.zoneDelegate = self;
+    cell.presentingViewController = self;
     [cell setData:[self.fetchedResults objectAtIndex:[indexPath row]]];
     return cell;
 }

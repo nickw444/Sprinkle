@@ -17,7 +17,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *countdownLabel;
 
 @property (nonatomic, weak) id<ZoneControllerDelegate> zoneDelegate;
+@property (nonatomic, weak) UIViewController *presentingViewController;
 @property (nonatomic) NSUInteger zoneID;
+- (IBAction)disclosurePressed:(id)sender;
 
 - (void) setData:(NSDictionary *)data;
 

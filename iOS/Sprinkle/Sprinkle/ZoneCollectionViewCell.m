@@ -59,9 +59,33 @@
     if ([self.offDate timeIntervalSinceNow] <= 0) {
         [self.countdownTimer invalidate];
         self.countdownTimer = nil;
+        self.countdownLabel.text = @"";
+        // Maybe go re-fetch to keep button states in sync?
     }
     
 }
+
+
+- (IBAction)disclosurePressed:(id)sender {
+    NSLog(@"Disclosure PRessed!");
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Set Zone Title" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.text = self.zoneLabel.text;
+    }];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.zoneLabel.text = alertController.textFields[0].text;
+        // TODO Persist this to the server
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alertController addAction:action];
+    [alertController addAction:cancelAction];
+    
+    [self.presentingViewController presentViewController:alertController animated:YES completion:nil];
+}
+
 
 #pragma mark - Date
 

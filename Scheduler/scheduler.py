@@ -93,27 +93,24 @@ def jobs_for_circuit(circuit):
 def set_zones(num_zones):
     pass
 
-def set_zone(circuit, zone_name):
+def set_zone(circuit, name):
     """
     Set the name of a circuit.
     """
     session = Session()
-    rv = False
     try:
         db_zone = session.query(Zone).get(circuit)
         if not db_zone:
             db_zone = Zone(circuit=circuit)
             session.add(db_zone)
-        db_zone.name = zone_name
+        db_zone.name = name
         session.commit()
-        rv = True
     except Exception as e:
-        rv = False
-        print(e)
+        raise e
     finally:
         session.close()
 
-    return rv
+    return get_zone(circuit)
 
 def get_zone(zone, session=None):
     if session is None:

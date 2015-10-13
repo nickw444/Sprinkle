@@ -7,7 +7,7 @@
 //
 
 #import "ZoneCollectionViewCell.h"
-
+#import "SprinkleRPCClient.h"
 @interface ZoneCollectionViewCell ()
 @property (nonatomic, retain) NSDate *offDate;
 @property (nonatomic, retain) NSTimer *countdownTimer;
@@ -29,16 +29,19 @@
 
 - (id) init {
     if (self = [super init]) {
-        self.state = [NSDictionary dictionary];
-        // Configure State KVO
-        [self addObserver:self forKeyPath:NSStringFromSelector(@selector(state)) options:0 context:nil];
+        self.state = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
 - (void) awakeFromNib {
-    self.state = [NSDictionary dictionary];
+    _state = [NSMutableDictionary dictionary];
     [self addObserver:self forKeyPath:NSStringFromSelector(@selector(state)) options:0 context:nil];
+    
+    UITapGestureRecognizer *recogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disclosurePressed:)];
+    recogniser.numberOfTapsRequired = 2;
+    [self.zoneLabel setUserInteractionEnabled:YES];
+    [self.zoneLabel addGestureRecognizer:recogniser];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -52,35 +55,38 @@
 }
 
 - (void) setState:(NSDictionary *)state {
-    _state = state;
-}
-
-
-- (void) stateChanged {
-    NSLog(@"State changed for Zone: %@", _state[@"name"]);
-    self.zoneLabel.text = _state[@"name"];
-    self.zoneID = [_state[@"circuit"] integerValue];
-    self.segmentController.selectedSegmentIndex = [[[self stateIndexMap] objectForKey:_state[@"mode"]] integerValue];
-    
-    // Do the Off-At text. 
+    NSLog(@"State was set for circuit: %@", state[@"circuit"]);
+    _state = [NSMutableDictionary dictionaryWithDictionary:state];
     if (self.countdownTimer) {
         [self.countdownTimer invalidate];
         self.countdownTimer = nil;
     }
+    
     NSString *offAt = _state[@"off_at"];
     if (![offAt isEqual:[NSNull null]]) {
         self.offDate = [self dateFromIsoString:offAt];
-        self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateCountdownLabel) userInfo:nil repeats:YES];
+        self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateCountdown) userInfo:nil repeats:YES];
     }
     else {
         self.offDate = nil;
     }
-    [self updateCountdownLabel];
+    [self updateCountdown];
+    [self stateChanged];
+}
+
+
+- (void) stateChanged {
+    self.zoneLabel.text = _state[@"name"];
+    self.zoneID = [_state[@"circuit"] integerValue];
+    self.segmentController.selectedSegmentIndex = [[[self stateIndexMap] objectForKey:_state[@"mode"]] integerValue];
+    if ([_state objectForKey:@"countdownLabel"]) {
+        self.countdownLabel.text = _state[@"countdownLabel"];
+    }
 }
 
 
 - (IBAction)zoneModeChanged:(id)sender {
-    // Tell the server the mode changed. If the mode is ON
+    // Tell the server the mode changed.
     [self.zoneDelegate cell:self zone:self.zoneID changedWithValue:self.segmentController.selectedSegmentIndex];
 }
 
@@ -89,32 +95,48 @@
     // Do FLUX model.
 }
 
-- (void) updateCountdownLabel {
+- (void) updateCountdown {
     if (self.offDate) {
-        self.countdownLabel.text = [self countdownStringUntil:self.offDate];
-    
+        [self.state setValue:[self countdownStringUntil:self.offDate] forKey:@"countdownLabel"];
+        
         if ([self.offDate timeIntervalSinceNow] <= 0) {
             [self.countdownTimer invalidate];
             self.countdownTimer = nil;
             self.offDate = nil;
-            self.countdownLabel.text = @"";
-            // Maybe go re-fetch to keep button states in sync?
+            [self.state setValue:@"No Timer Set" forKey:@"countdownLabel"];
         }
     }
+    else {
+       [self.state setValue:@"No Timer Set" forKey:@"countdownLabel"];
+    }
+    [self stateChanged];
 }
 
 
 - (IBAction)disclosurePressed:(id)sender {
-    NSLog(@"Disclosure PRessed!");
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Set Zone Title" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.text = self.zoneLabel.text;
+        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     }];
     
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        self.zoneLabel.text = alertController.textFields[0].text;
-        // TODO Persist this to the server
+        [self.state setValue:alertController.textFields[0].text forKey:@"name"];
+        [self stateChanged];
+
+        [[SprinkleRPCClient sharedClient] invokeMethod:@"set_zone"
+                                        withParameters:@{
+                                                         @"circuit": [NSNumber numberWithInteger:self.zoneID],
+                                                         @"name": alertController.textFields[0].text
+                                                        }
+                                               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                   [self setState:responseObject];
+                                               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                   NSLog(@"Failure");
+                                               }];
+        
+        
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
     

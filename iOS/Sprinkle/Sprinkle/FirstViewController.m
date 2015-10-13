@@ -19,7 +19,20 @@
     [super viewDidLoad];
     self.fetchedResults = [NSArray array];
     [self refetchStates];
+    self.durationPicker.selectedSegmentIndex = [self lastDurationIndex];
+}
 
+- (void) viewDidAppear:(BOOL)animated {
+    UIEdgeInsets scrollInsets = self.collectionView.scrollIndicatorInsets;
+    scrollInsets.bottom = 0;
+    self.collectionView.scrollIndicatorInsets = scrollInsets;
+    
+    scrollInsets = self.collectionView.contentInset;
+    scrollInsets.bottom = 0;
+    self.collectionView.contentInset = scrollInsets;
+    // Set Scroll insets for the picker view;
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -112,7 +125,6 @@
 
 - (void) cell:(id)_cell zone:(NSUInteger)zone changedWithValue:(NSUInteger)value {
     ZoneCollectionViewCell *cell = (ZoneCollectionViewCell *)_cell;
-    NSLog(@"Zone: %ld changed to %ld", (long)zone, (long)value);
     // Handle telling the Scheduler that this zone turned on.
     // We need to map value to an NSString
     
@@ -128,7 +140,7 @@
                             };
     
     [[SprinkleRPCClient sharedClient] invokeMethod:@"set_mode" withParameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Success");
+        NSLog(@"Success whilst setting a circuit %ld's mode", zone);
         cell.state = responseObject;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failure");
@@ -136,6 +148,22 @@
     }];
     
 }
+#pragma mark - Actions
+- (IBAction)durationSelectionChanged:(id)sender {
+    [self setLastDurationIndex:self.durationPicker.selectedSegmentIndex];
+}
+
+
+#pragma mark - NSUD
+#define NSUD_LAST_DURATION @"LAST_DURATION_INDEX"
+- (NSUInteger) lastDurationIndex {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:NSUD_LAST_DURATION];
+}
+- (void) setLastDurationIndex:(NSUInteger)index {
+    [[NSUserDefaults standardUserDefaults] setInteger:index forKey:NSUD_LAST_DURATION];
+}
+
+
 
 
 @end

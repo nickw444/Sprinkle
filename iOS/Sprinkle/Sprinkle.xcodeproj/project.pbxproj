@@ -130,7 +130,6 @@
 				60E0CF6B1BCA9AA700583684 /* Frameworks */,
 				60E0CF6C1BCA9AA700583684 /* Resources */,
 				D6B82BAD1DDE2690160D88E4 /* Copy Pods Resources */,
-				D538711B3D52640F18EBF667 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,6 +150,7 @@
 				TargetAttributes = {
 					60E0CF6D1BCA9AA700583684 = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = 7EEVNZJ9GT;
 					};
 				};
 			};
@@ -199,21 +199,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D538711B3D52640F18EBF667 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sprinkle/Pods-Sprinkle-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D6B82BAD1DDE2690160D88E4 /* Copy Pods Resources */ = {
@@ -356,10 +341,12 @@
 			baseConfigurationReference = 2CC56F859931B25E64F152F8 /* Pods-Sprinkle.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Sprinkle/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nickwhyte.Sprinkle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -368,10 +355,12 @@
 			baseConfigurationReference = 2C755DD05D4701AE718AB01E /* Pods-Sprinkle.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Sprinkle/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nickwhyte.Sprinkle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

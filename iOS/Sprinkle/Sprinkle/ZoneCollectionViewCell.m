@@ -14,6 +14,7 @@
 @end
 
 @implementation ZoneCollectionViewCell
+@synthesize state = _state;
 
 - (NSDictionary *)stateIndexMap {
     static NSDictionary *states;
@@ -26,43 +27,80 @@
     return states;
 }
 
-- (void) setData:(NSDictionary *)data {
-    self.zoneLabel.text = data[@"name"];
-    NSLog(@"%@", data);
-    self.zoneID = [data[@"circuit"] integerValue];
-    self.segmentController.selectedSegmentIndex = [[[self stateIndexMap] objectForKey:data[@"mode"]] integerValue];
+- (id) init {
+    if (self = [super init]) {
+        self.state = [NSDictionary dictionary];
+        // Configure State KVO
+        [self addObserver:self forKeyPath:NSStringFromSelector(@selector(state)) options:0 context:nil];
+    }
+    return self;
+}
+
+- (void) awakeFromNib {
+    self.state = [NSDictionary dictionary];
+    [self addObserver:self forKeyPath:NSStringFromSelector(@selector(state)) options:0 context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if ([keyPath isEqualToString:NSStringFromSelector(@selector(state))]) {
+        [self stateChanged];
+    }
     
-    NSString *offAt = data[@"off_at"];
+}
+
+- (void) setState:(NSDictionary *)state {
+    _state = state;
+}
+
+
+- (void) stateChanged {
+    NSLog(@"State changed for Zone: %@", _state[@"name"]);
+    self.zoneLabel.text = _state[@"name"];
+    self.zoneID = [_state[@"circuit"] integerValue];
+    self.segmentController.selectedSegmentIndex = [[[self stateIndexMap] objectForKey:_state[@"mode"]] integerValue];
     
+    // Do the Off-At text. 
     if (self.countdownTimer) {
         [self.countdownTimer invalidate];
         self.countdownTimer = nil;
     }
+    NSString *offAt = _state[@"off_at"];
     if (![offAt isEqual:[NSNull null]]) {
-        self.offDate = [self dateFromIsoString:data[@"off_at"]];
+        self.offDate = [self dateFromIsoString:offAt];
         self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateCountdownLabel) userInfo:nil repeats:YES];
-        [self updateCountdownLabel];
     }
     else {
-        // Disable the countdown timer if it is active
-        self.countdownLabel.text = @"";
+        self.offDate = nil;
     }
+    [self updateCountdownLabel];
 }
+
+
 - (IBAction)zoneModeChanged:(id)sender {
     // Tell the server the mode changed. If the mode is ON
     [self.zoneDelegate cell:self zone:self.zoneID changedWithValue:self.segmentController.selectedSegmentIndex];
 }
 
+- (void) refetchZone {
+    // Go and fetch info for this zone only.
+    // Do FLUX model.
+}
+
 - (void) updateCountdownLabel {
-    self.countdownLabel.text = [self countdownStringUntil:self.offDate];
+    if (self.offDate) {
+        self.countdownLabel.text = [self countdownStringUntil:self.offDate];
     
-    if ([self.offDate timeIntervalSinceNow] <= 0) {
-        [self.countdownTimer invalidate];
-        self.countdownTimer = nil;
-        self.countdownLabel.text = @"";
-        // Maybe go re-fetch to keep button states in sync?
+        if ([self.offDate timeIntervalSinceNow] <= 0) {
+            [self.countdownTimer invalidate];
+            self.countdownTimer = nil;
+            self.offDate = nil;
+            self.countdownLabel.text = @"";
+            // Maybe go re-fetch to keep button states in sync?
+        }
     }
-    
 }
 
 

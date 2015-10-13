@@ -2,3 +2,4 @@ HWI/venv/
 Scheduler/jobs.sqlite
 iOS/Sprinkle/Pods/
 Scheduler/zones.db
+Scheduler/venv/

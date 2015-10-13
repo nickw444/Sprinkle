@@ -65,7 +65,7 @@
     ZoneCollectionViewCell *cell = (ZoneCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     cell.zoneDelegate = self;
     cell.presentingViewController = self;
-    [cell setData:[self.fetchedResults objectAtIndex:[indexPath row]]];
+    cell.state =[self.fetchedResults objectAtIndex:[indexPath row]];
     return cell;
 }
 
@@ -129,8 +129,7 @@
     
     [[SprinkleRPCClient sharedClient] invokeMethod:@"set_mode" withParameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Success");
-        [cell setData:responseObject];
-        NSLog(@"%@", responseObject);
+        cell.state = responseObject;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Failure");
         [self refetchStates];

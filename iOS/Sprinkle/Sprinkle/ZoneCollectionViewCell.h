@@ -19,8 +19,8 @@
 @property (nonatomic, weak) id<ZoneControllerDelegate> zoneDelegate;
 @property (nonatomic, weak) UIViewController *presentingViewController;
 @property (nonatomic) NSUInteger zoneID;
+@property (nonatomic, retain) NSDictionary *state;
 - (IBAction)disclosurePressed:(id)sender;
 
-- (void) setData:(NSDictionary *)data;
 
 @end

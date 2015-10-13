@@ -12,6 +12,8 @@ from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
+hwi_uri = 'http://192.168.8.184:8001'
 engine = create_engine('sqlite:///zones.db')
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
@@ -162,7 +164,7 @@ def get_zones(zones=None):
 
 
 def get_mode(circuit):
-    hwi = jsonrpclib.Server('http://raspberrypi:8001')
+    hwi = jsonrpclib.Server(hwi_uri)
     state = None
     if hwi.get_port(circuit):
         state = 'ON'
@@ -205,7 +207,7 @@ def set_mode(mode, circuit, duration=None):
     """
     print("Turning circuit {} into mode {}".format(circuit, mode))
     jobs = jobs_for_circuit(circuit)
-    hwi = jsonrpclib.Server('http://raspberrypi:8001')
+    hwi = jsonrpclib.Server(hwi_uri)
     def clean_scheduled_and_one_off():
         for job in jobs:
             if job.kwargs['jobtype'] == 'scheduled':

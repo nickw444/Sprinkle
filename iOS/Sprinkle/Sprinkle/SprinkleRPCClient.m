@@ -13,7 +13,7 @@
     static AFJSONRPCClient *sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedClient = [AFJSONRPCClient clientWithEndpointURL:[NSURL URLWithString:@"http://192.168.8.6:8002"]];
+        sharedClient = [AFJSONRPCClient clientWithEndpointURL:[NSURL URLWithString:@"http://192.168.8.184:8002"]];
     });
     return sharedClient;
 }

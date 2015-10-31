@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, ZoneMode) {
 @property (nonatomic, retain) NSString *label;
 @property (nonatomic, retain) NSDate *offDate;
 @property (nonatomic, retain) NSNumber *zoneID;
+@property (nonatomic, retain) NSNumber *numSchedules;
 @property (nonatomic) ZoneMode mode;
 @property (nonatomic, weak) ZoneModel* zoneModel;
 @property (nonatomic, retain) NSMutableArray *schedule;

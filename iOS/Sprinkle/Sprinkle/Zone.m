@@ -26,6 +26,7 @@
 - (void) fromDict:(NSDictionary *)dict {
     _label = dict[@"name"];
     _mode = [self zoneModeFromString:dict[@"mode"]];
+    _numSchedules = dict[@"num_schedules"];
     _offDate = nil;
     NSString *offAt = dict[@"off_at"];
     if (![offAt isEqual:[NSNull null]]) {
@@ -133,6 +134,13 @@
 }
 
 #pragma mark - Schedule
+
+-(NSNumber *)numSchedules {
+    if (_schedule) {
+        return [NSNumber numberWithUnsignedInteger:[_schedule count]];
+    }
+    return _numSchedules;
+}
 
 - (NSMutableArray *) processSchedule:(NSArray *)objects {
     NSMutableArray *schedule = [NSMutableArray array];

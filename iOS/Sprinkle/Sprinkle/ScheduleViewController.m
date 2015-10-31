@@ -49,6 +49,7 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     Zone *zone = [[[ZoneModel sharedModel]zones] objectAtIndex:[indexPath row]];
     cell.textLabel.text = zone.label;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ scheduled job%@ configured", zone.numSchedules, (zone.numSchedules.integerValue == 1)? @"" : @"s"];
     return cell;
 }
 

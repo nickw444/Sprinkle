@@ -13,7 +13,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-hwi_uri = 'http://192.168.8.184:8001'
+hwi_uri = 'http://127.0.0.1:8001'
 engine = create_engine('sqlite:///zones.db')
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
@@ -282,6 +282,9 @@ def add_schedule(circuit, days, hour, minute, duration):
     )
     print("Created job with id: {} and args: {}".format(job.id, job.kwargs))
     set_mode('AUTO', circuit)
+    return {
+        "job_id": job.id,
+    }
 
 def get_schedule(circuit=None):
     response = []

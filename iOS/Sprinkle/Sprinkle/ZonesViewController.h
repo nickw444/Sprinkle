@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ZoneCollectionViewCell.h"
 
-@interface FirstViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, ZoneControllerDelegate>
+@interface ZonesViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 - (IBAction)refreshButtonPressed:(id)sender;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *durationPicker;

@@ -49,7 +49,6 @@
 
 
 - (IBAction)zoneModeChanged:(id)sender {
-    self.zone.mode = self.segmentController.selectedSegmentIndex;
     [self.zone setMode:self.segmentController.selectedSegmentIndex WithCompletion:^{
         [self updateState];
     }];

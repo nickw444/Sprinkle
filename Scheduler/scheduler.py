@@ -155,8 +155,6 @@ def get_zones(zones=None):
 
     session.close()
 
-    print(response)
-
     return response
 
 

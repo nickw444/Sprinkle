@@ -98,19 +98,8 @@
 }
 
 #pragma mark - Fetched Results
-- (void) refetchStates {
-    [[SprinkleRPCClient sharedClient]invokeMethod:@"get_zones" success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        self.fetchedResults = [NSArray arrayWithArray:responseObject];
-        [self.collectionView reloadData];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"FAILED TO GET ZONES");
-    }];
-}
-
 - (IBAction)refreshButtonPressed:(id)sender {
-    [self refetchStates];
+    [[ZoneModel sharedModel] reloadZones];
 }
 
 #pragma mark - Zone Delegate

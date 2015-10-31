@@ -24,9 +24,10 @@ with Header() as header:
             # Make sure they gave us a valid port
             if port_index < len(self.ports):
                 self.ports[port_index].value = value
+                print("Set Port {} To Value {}".format(port_index, value))
                 return True
             else:
-                print("Invalid port was given ({}). Ignoring".format(port))
+                print("Invalid port was given ({}). Ignoring".format(port_index))
                 return False
 
         def get_port(self, port_index):

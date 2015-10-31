@@ -135,6 +135,7 @@ def get_zone(zone, session=None):
         mode=mode,
         off_at=off_at,
         circuit=zone,
+        num_schedules=get_schedule(circuit=zone, count=True)
     )
 
     if session is None:
@@ -284,10 +285,15 @@ def add_schedule(circuit, days, hour, minute, duration):
         "job_id": job.id,
     }
 
-def get_schedule(circuit=None):
+def get_schedule(circuit=None, count=False):
     response = []
+    num = 0
     for job in scheduler.get_jobs():
         if circuit is None or job.kwargs['circuit'] == circuit:
+            if count:
+                num += 1
+                continue
+
             cron = dict()
             for f in job.trigger.fields:
                 if f.name == 'day_of_week':
@@ -305,7 +311,10 @@ def get_schedule(circuit=None):
             )
             response.append(s)
 
-    return response
+    if count:
+        return num
+    else:
+        return response
 
 def rm_schedule(job_id):
     scheduler.remove_job(job_id)

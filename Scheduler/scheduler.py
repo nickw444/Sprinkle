@@ -262,14 +262,14 @@ def set_mode(mode, circuit, duration=None):
 
 
 
-def add_schedule(circuit, days, hour, minute, duration):
+def add_schedule(circuit, days, hour, minute, duration, second=0):
     """
     days (list): mon,tue,wed,thu,fri,sat,sun
     hour (int): 0-23
     minute (int): 0-59
     duration (int): Seconds to stay on for.
     """
-    trigger = CronTrigger(day_of_week=days, hour=hour, minute=minute, second=0)
+    trigger = CronTrigger(day_of_week=days, hour=hour, minute=minute, second=second)
     job = scheduler.add_job(
         schedule_runner,
         kwargs={

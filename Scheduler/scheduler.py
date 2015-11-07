@@ -13,6 +13,8 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+NUM_ZONES = 10
+
 hwi_uri = 'http://127.0.0.1:8001'
 engine = create_engine('sqlite:///zones.db')
 Base = declarative_base()
@@ -146,7 +148,7 @@ def get_zone(zone, session=None):
 def get_zones(zones=None):
     
     if zones is None:
-        zones = range(8)
+        zones = range(NUM_ZONES)
 
     session = Session()
     response = list()

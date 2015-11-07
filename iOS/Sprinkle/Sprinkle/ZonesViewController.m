@@ -6,20 +6,36 @@
 //
 //
 
-#import "FirstViewController.h"
+#import "ZonesViewController.h"
 #import "SprinkleRPCClient.h"
 #import "ZoneCollectionViewCell.h"
-@interface FirstViewController ()
+#import "ZoneModel.h"
+
+@interface ZonesViewController ()
 @property (nonatomic, retain) NSArray *fetchedResults;
 @end
 
-@implementation FirstViewController
+@implementation ZonesViewController
+
+-(void) dealloc {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.fetchedResults = [NSArray array];
-    [self refetchStates];
+    [[ZoneModel sharedModel] reloadZones];
+
+//    self.fetchedResults = [NSArray array];
+//    [self refetchStates];
     self.durationPicker.selectedSegmentIndex = [self lastDurationIndex];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataChanged) name:@"ZoneModel-Updated" object:nil];
+    
+}
+
+-(void) dataChanged {
+    NSLog(@"Data Changed");
+    [self.collectionView reloadData];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -45,7 +61,7 @@
     
     NSString *mode;
     NSNumber *duration;
-    NSLog(@"%ld", control.selectedSegmentIndex);
+    NSLog(@"%ld", (unsigned long)control.selectedSegmentIndex);
     switch (control.selectedSegmentIndex) {
         case 0:
             mode = @"OFF";
@@ -69,33 +85,21 @@
 #pragma mark - UICollectionView 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (section == 0){
-        return [self.fetchedResults count];
+        return [[[ZoneModel sharedModel]zones] count];
     }
     return 0;
 }
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"zoneCell";
     ZoneCollectionViewCell *cell = (ZoneCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    cell.zoneDelegate = self;
     cell.presentingViewController = self;
-    cell.state =[self.fetchedResults objectAtIndex:[indexPath row]];
+    cell.zone =[[[ZoneModel sharedModel]zones]  objectAtIndex:[indexPath row]];
     return cell;
 }
 
 #pragma mark - Fetched Results
-- (void) refetchStates {
-    [[SprinkleRPCClient sharedClient]invokeMethod:@"get_zones" success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        self.fetchedResults = [NSArray arrayWithArray:responseObject];
-        [self.collectionView reloadData];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"FAILED TO GET ZONES");
-    }];
-}
-
 - (IBAction)refreshButtonPressed:(id)sender {
-    [self refetchStates];
+    [[ZoneModel sharedModel] reloadZones];
 }
 
 #pragma mark - Zone Delegate
@@ -123,31 +127,6 @@
     return states;
 }
 
-- (void) cell:(id)_cell zone:(NSUInteger)zone changedWithValue:(NSUInteger)value {
-    ZoneCollectionViewCell *cell = (ZoneCollectionViewCell *)_cell;
-    // Handle telling the Scheduler that this zone turned on.
-    // We need to map value to an NSString
-    
-    NSString *mode = [[self stateMap] objectAtIndex:value];
-    NSNumber *duration = [[self durationMap] objectAtIndex:[self.durationPicker selectedSegmentIndex]];
-    NSLog(@"Setting zone: %ld to %@ for duration: %@", zone, mode, duration);
-    
-    // Tell the server
-    NSDictionary *params = @{
-                            @"mode": mode,
-                            @"circuit": [NSNumber numberWithInteger:zone],
-                            @"duration": duration,
-                            };
-    
-    [[SprinkleRPCClient sharedClient] invokeMethod:@"set_mode" withParameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Success whilst setting a circuit %ld's mode", zone);
-        cell.state = responseObject;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Failure");
-        [self refetchStates];
-    }];
-    
-}
 #pragma mark - Actions
 - (IBAction)durationSelectionChanged:(id)sender {
     [self setLastDurationIndex:self.durationPicker.selectedSegmentIndex];

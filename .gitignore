@@ -3,3 +3,4 @@ Scheduler/jobs.sqlite
 iOS/Sprinkle/Pods/
 Scheduler/zones.db
 Scheduler/venv/
+*.log

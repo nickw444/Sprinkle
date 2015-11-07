@@ -7,17 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		608C30011BCBB29800A4F24B /* SprinkleRPCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 608C30001BCBB29800A4F24B /* SprinkleRPCClient.m */; settings = {ASSET_TAGS = (); }; };
-		608C30041BCBB60100A4F24B /* ZoneCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 608C30031BCBB60100A4F24B /* ZoneCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		608C30011BCBB29800A4F24B /* SprinkleRPCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 608C30001BCBB29800A4F24B /* SprinkleRPCClient.m */; };
+		608C30041BCBB60100A4F24B /* ZoneCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 608C30031BCBB60100A4F24B /* ZoneCollectionViewCell.m */; };
+		609CC5F11BE46E0F00373CB3 /* SingleZoneScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609CC5F01BE46E0F00373CB3 /* SingleZoneScheduleViewController.m */; };
+		609CC5F71BE4715900373CB3 /* Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 609CC5F61BE4715900373CB3 /* Schedule.m */; };
+		609CC6011BE474C400373CB3 /* SprinkleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 609CC6001BE474C400373CB3 /* SprinkleTests.m */; };
+		609CC60A1BE474E100373CB3 /* TestSchedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 609CC6091BE474E100373CB3 /* TestSchedule.m */; };
+		60B56D0F1BE4457400F4B139 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B56D0E1BE4457400F4B139 /* ScheduleViewController.m */; };
+		60B56D121BE445D800F4B139 /* ZonesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B56D111BE445D800F4B139 /* ZonesViewController.m */; };
+		60B56D151BE4461700F4B139 /* ZoneModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B56D141BE4461700F4B139 /* ZoneModel.m */; };
+		60B56D181BE4468000F4B139 /* Zone.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B56D171BE4468000F4B139 /* Zone.m */; };
 		60E0CF731BCA9AA700583684 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E0CF721BCA9AA700583684 /* main.m */; };
 		60E0CF761BCA9AA700583684 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E0CF751BCA9AA700583684 /* AppDelegate.m */; };
-		60E0CF791BCA9AA700583684 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E0CF781BCA9AA700583684 /* FirstViewController.m */; };
-		60E0CF7C1BCA9AA700583684 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E0CF7B1BCA9AA700583684 /* SecondViewController.m */; };
 		60E0CF7F1BCA9AA700583684 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60E0CF7D1BCA9AA700583684 /* Main.storyboard */; };
 		60E0CF811BCA9AA700583684 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60E0CF801BCA9AA700583684 /* Assets.xcassets */; };
 		60E0CF841BCA9AA700583684 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60E0CF821BCA9AA700583684 /* LaunchScreen.storyboard */; };
+		60FE41101BE47924001E7ED2 /* ScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE410F1BE47924001E7ED2 /* ScheduleCell.m */; };
+		60FE41131BE49093001E7ED2 /* EditScheduleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE41121BE49093001E7ED2 /* EditScheduleTableViewController.m */; };
 		ABEAFFD7E6FF9E40EDB46DB2 /* libPods-Sprinkle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDCB5C28F183A93079AC01E0 /* libPods-Sprinkle.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		609CC6031BE474C400373CB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60E0CF661BCA9AA700583684 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 60E0CF6D1BCA9AA700583684;
+			remoteInfo = Sprinkle;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2C755DD05D4701AE718AB01E /* Pods-Sprinkle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sprinkle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sprinkle/Pods-Sprinkle.release.xcconfig"; sourceTree = "<group>"; };
@@ -26,22 +44,45 @@
 		608C30001BCBB29800A4F24B /* SprinkleRPCClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SprinkleRPCClient.m; sourceTree = "<group>"; };
 		608C30021BCBB60100A4F24B /* ZoneCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoneCollectionViewCell.h; sourceTree = "<group>"; };
 		608C30031BCBB60100A4F24B /* ZoneCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoneCollectionViewCell.m; sourceTree = "<group>"; };
+		609CC5EF1BE46E0F00373CB3 /* SingleZoneScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleZoneScheduleViewController.h; sourceTree = "<group>"; };
+		609CC5F01BE46E0F00373CB3 /* SingleZoneScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleZoneScheduleViewController.m; sourceTree = "<group>"; };
+		609CC5F51BE4715900373CB3 /* Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
+		609CC5F61BE4715900373CB3 /* Schedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Schedule.m; sourceTree = "<group>"; };
+		609CC5FE1BE474C400373CB3 /* SprinkleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SprinkleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		609CC6001BE474C400373CB3 /* SprinkleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SprinkleTests.m; sourceTree = "<group>"; };
+		609CC6021BE474C400373CB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		609CC6091BE474E100373CB3 /* TestSchedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestSchedule.m; path = SprinkleTests/TestSchedule.m; sourceTree = "<group>"; };
+		60B56D0D1BE4457400F4B139 /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
+		60B56D0E1BE4457400F4B139 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
+		60B56D101BE445D800F4B139 /* ZonesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZonesViewController.h; sourceTree = "<group>"; };
+		60B56D111BE445D800F4B139 /* ZonesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZonesViewController.m; sourceTree = "<group>"; };
+		60B56D131BE4461700F4B139 /* ZoneModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoneModel.h; sourceTree = "<group>"; };
+		60B56D141BE4461700F4B139 /* ZoneModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoneModel.m; sourceTree = "<group>"; };
+		60B56D161BE4468000F4B139 /* Zone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Zone.h; sourceTree = "<group>"; };
+		60B56D171BE4468000F4B139 /* Zone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Zone.m; sourceTree = "<group>"; };
 		60E0CF6E1BCA9AA700583684 /* Sprinkle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sprinkle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60E0CF721BCA9AA700583684 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		60E0CF741BCA9AA700583684 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		60E0CF751BCA9AA700583684 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		60E0CF771BCA9AA700583684 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		60E0CF781BCA9AA700583684 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		60E0CF7A1BCA9AA700583684 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		60E0CF7B1BCA9AA700583684 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		60E0CF7E1BCA9AA700583684 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		60E0CF801BCA9AA700583684 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		60E0CF831BCA9AA700583684 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		60E0CF851BCA9AA700583684 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		60FE410E1BE47924001E7ED2 /* ScheduleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleCell.h; sourceTree = "<group>"; };
+		60FE410F1BE47924001E7ED2 /* ScheduleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleCell.m; sourceTree = "<group>"; };
+		60FE41111BE49093001E7ED2 /* EditScheduleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditScheduleTableViewController.h; path = Sprinkle/EditScheduleTableViewController.h; sourceTree = "<group>"; };
+		60FE41121BE49093001E7ED2 /* EditScheduleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditScheduleTableViewController.m; path = Sprinkle/EditScheduleTableViewController.m; sourceTree = "<group>"; };
 		CDCB5C28F183A93079AC01E0 /* libPods-Sprinkle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sprinkle.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		609CC5FB1BE474C400373CB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		60E0CF6B1BCA9AA700583684 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -53,10 +94,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		609CC5FF1BE474C400373CB3 /* SprinkleTests */ = {
+			isa = PBXGroup;
+			children = (
+				609CC6001BE474C400373CB3 /* SprinkleTests.m */,
+				609CC6021BE474C400373CB3 /* Info.plist */,
+			);
+			path = SprinkleTests;
+			sourceTree = "<group>";
+		};
+		609CC6081BE474D300373CB3 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
 		60E0CF651BCA9AA700583684 = {
 			isa = PBXGroup;
 			children = (
+				60FE41111BE49093001E7ED2 /* EditScheduleTableViewController.h */,
+				60FE41121BE49093001E7ED2 /* EditScheduleTableViewController.m */,
+				609CC6091BE474E100373CB3 /* TestSchedule.m */,
+				609CC6081BE474D300373CB3 /* New Group */,
 				60E0CF701BCA9AA700583684 /* Sprinkle */,
+				609CC5FF1BE474C400373CB3 /* SprinkleTests */,
 				60E0CF6F1BCA9AA700583684 /* Products */,
 				B54D732D649B58096C6ADD4E /* Pods */,
 				FD6734211EE6A1E32F58E3ED /* Frameworks */,
@@ -67,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				60E0CF6E1BCA9AA700583684 /* Sprinkle.app */,
+				609CC5FE1BE474C400373CB3 /* SprinkleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -74,14 +137,14 @@
 		60E0CF701BCA9AA700583684 /* Sprinkle */ = {
 			isa = PBXGroup;
 			children = (
+				60FE410E1BE47924001E7ED2 /* ScheduleCell.h */,
+				60FE410F1BE47924001E7ED2 /* ScheduleCell.m */,
 				608C30021BCBB60100A4F24B /* ZoneCollectionViewCell.h */,
 				608C30031BCBB60100A4F24B /* ZoneCollectionViewCell.m */,
 				60E0CF741BCA9AA700583684 /* AppDelegate.h */,
 				60E0CF751BCA9AA700583684 /* AppDelegate.m */,
-				60E0CF771BCA9AA700583684 /* FirstViewController.h */,
-				60E0CF781BCA9AA700583684 /* FirstViewController.m */,
-				60E0CF7A1BCA9AA700583684 /* SecondViewController.h */,
-				60E0CF7B1BCA9AA700583684 /* SecondViewController.m */,
+				60B56D101BE445D800F4B139 /* ZonesViewController.h */,
+				60B56D111BE445D800F4B139 /* ZonesViewController.m */,
 				60E0CF7D1BCA9AA700583684 /* Main.storyboard */,
 				60E0CF801BCA9AA700583684 /* Assets.xcassets */,
 				60E0CF821BCA9AA700583684 /* LaunchScreen.storyboard */,
@@ -89,6 +152,16 @@
 				60E0CF711BCA9AA700583684 /* Supporting Files */,
 				608C2FFF1BCBB29800A4F24B /* SprinkleRPCClient.h */,
 				608C30001BCBB29800A4F24B /* SprinkleRPCClient.m */,
+				60B56D0D1BE4457400F4B139 /* ScheduleViewController.h */,
+				60B56D0E1BE4457400F4B139 /* ScheduleViewController.m */,
+				60B56D131BE4461700F4B139 /* ZoneModel.h */,
+				60B56D141BE4461700F4B139 /* ZoneModel.m */,
+				60B56D161BE4468000F4B139 /* Zone.h */,
+				60B56D171BE4468000F4B139 /* Zone.m */,
+				609CC5EF1BE46E0F00373CB3 /* SingleZoneScheduleViewController.h */,
+				609CC5F01BE46E0F00373CB3 /* SingleZoneScheduleViewController.m */,
+				609CC5F51BE4715900373CB3 /* Schedule.h */,
+				609CC5F61BE4715900373CB3 /* Schedule.m */,
 			);
 			path = Sprinkle;
 			sourceTree = "<group>";
@@ -121,6 +194,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		609CC5FD1BE474C400373CB3 /* SprinkleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 609CC6051BE474C400373CB3 /* Build configuration list for PBXNativeTarget "SprinkleTests" */;
+			buildPhases = (
+				609CC5FA1BE474C400373CB3 /* Sources */,
+				609CC5FB1BE474C400373CB3 /* Frameworks */,
+				609CC5FC1BE474C400373CB3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				609CC6041BE474C400373CB3 /* PBXTargetDependency */,
+			);
+			name = SprinkleTests;
+			productName = SprinkleTests;
+			productReference = 609CC5FE1BE474C400373CB3 /* SprinkleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		60E0CF6D1BCA9AA700583684 /* Sprinkle */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 60E0CF881BCA9AA700583684 /* Build configuration list for PBXNativeTarget "Sprinkle" */;
@@ -148,6 +239,10 @@
 			attributes = {
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
+					609CC5FD1BE474C400373CB3 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 60E0CF6D1BCA9AA700583684;
+					};
 					60E0CF6D1BCA9AA700583684 = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = 7EEVNZJ9GT;
@@ -168,11 +263,19 @@
 			projectRoot = "";
 			targets = (
 				60E0CF6D1BCA9AA700583684 /* Sprinkle */,
+				609CC5FD1BE474C400373CB3 /* SprinkleTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		609CC5FC1BE474C400373CB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		60E0CF6C1BCA9AA700583684 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -219,20 +322,43 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		609CC5FA1BE474C400373CB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				609CC60A1BE474E100373CB3 /* TestSchedule.m in Sources */,
+				609CC6011BE474C400373CB3 /* SprinkleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		60E0CF6A1BCA9AA700583684 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				609CC5F71BE4715900373CB3 /* Schedule.m in Sources */,
 				608C30041BCBB60100A4F24B /* ZoneCollectionViewCell.m in Sources */,
+				60B56D151BE4461700F4B139 /* ZoneModel.m in Sources */,
+				609CC5F11BE46E0F00373CB3 /* SingleZoneScheduleViewController.m in Sources */,
 				608C30011BCBB29800A4F24B /* SprinkleRPCClient.m in Sources */,
-				60E0CF7C1BCA9AA700583684 /* SecondViewController.m in Sources */,
 				60E0CF761BCA9AA700583684 /* AppDelegate.m in Sources */,
-				60E0CF791BCA9AA700583684 /* FirstViewController.m in Sources */,
+				60B56D0F1BE4457400F4B139 /* ScheduleViewController.m in Sources */,
+				60B56D181BE4468000F4B139 /* Zone.m in Sources */,
+				60B56D121BE445D800F4B139 /* ZonesViewController.m in Sources */,
 				60E0CF731BCA9AA700583684 /* main.m in Sources */,
+				60FE41131BE49093001E7ED2 /* EditScheduleTableViewController.m in Sources */,
+				60FE41101BE47924001E7ED2 /* ScheduleCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		609CC6041BE474C400373CB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 60E0CF6D1BCA9AA700583684 /* Sprinkle */;
+			targetProxy = 609CC6031BE474C400373CB3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		60E0CF7D1BCA9AA700583684 /* Main.storyboard */ = {
@@ -254,6 +380,32 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		609CC6061BE474C400373CB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SprinkleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nickwhyte.SprinkleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sprinkle.app/Sprinkle";
+			};
+			name = Debug;
+		};
+		609CC6071BE474C400373CB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SprinkleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nickwhyte.SprinkleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sprinkle.app/Sprinkle";
+			};
+			name = Release;
+		};
 		60E0CF861BCA9AA700583684 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -290,7 +442,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -328,7 +480,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -343,6 +495,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Sprinkle/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nickwhyte.Sprinkle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -357,6 +510,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Sprinkle/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nickwhyte.Sprinkle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -367,6 +521,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		609CC6051BE474C400373CB3 /* Build configuration list for PBXNativeTarget "SprinkleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				609CC6061BE474C400373CB3 /* Debug */,
+				609CC6071BE474C400373CB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		60E0CF691BCA9AA700583684 /* Build configuration list for PBXProject "Sprinkle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
